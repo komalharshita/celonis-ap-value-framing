@@ -1,0 +1,28 @@
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Excel temp files
+~$*.xlsx
+~$*.xls
+
+# PowerPoint temp files
+~$*.pptx
+
+# Output files (regenerate from scripts)
+*.log
+output/
