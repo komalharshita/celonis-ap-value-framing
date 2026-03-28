@@ -1,22 +1,3 @@
-"""
-deviation_analysis.py
-=====================
-Purchase-to-Pay — Deviation Classification & Root Cause Analysis
-Project: AP Value Framing Business Case
-Author : [Your Name]
-Date   : 2026
-
-Usage:
-    python analysis/deviation_analysis.py
-
-Outputs:
-    Console root cause summary
-    assets/deviation_pareto.png
-    assets/vendor_risk_matrix.png
-    data/case_classification.csv   ← enriched case table
-    data/activity_summary.csv      ← activity-level deviation summary
-"""
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches

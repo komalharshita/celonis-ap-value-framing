@@ -1,0 +1,14 @@
+
+# AP Value Framing Business Case — Python Dependencies
+
+
+# ── Core Data Analysis ───────────────────────────────────────
+pandas>=2.0.0          # DataFrame operations, CSV loading, groupby aggregations
+numpy>=1.24.0          # Numerical operations, array manipulation, sensitivity matrix
+
+# ── Visualisation ────────────────────────────────────────────
+matplotlib>=3.7.0      # All charts: bar, scatter, donut, heatmap, Pareto
+
+# ── Utilities (stdlib — no install needed, listed for clarity)
+# os                   # File path management (built-in)
+# datetime             # Timestamp parsing (built-in, used via pandas)
