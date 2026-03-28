@@ -1,30 +1,9 @@
-"""
-value_calculation.py
-====================
-AP Value Framing — Business Case Monetary Value Calculator
-Project: AP Value Framing Business Case
-Author : [Your Name]
-Date   : 2026
-
-Implements Celonis Value Framing formula:
-    EMV = Affected Events × Realization Potential × (Effort Minutes × FTE Cost/min)
-
-Usage:
-    python analysis/value_calculation.py
-
-Outputs:
-    Console business case summary with sensitivity table
-    assets/value_summary.png     ← bar chart of framed values
-    assets/sensitivity_table.png ← heatmap sensitivity analysis
-"""
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
 import os
 
-# ── Config ──────────────────────────────────────────────────────────────────
 DATA_DIR   = "data"
 ASSETS_DIR = "assets"
 os.makedirs(ASSETS_DIR, exist_ok=True)
@@ -36,9 +15,7 @@ GREEN  = "#388E3C"
 LIGHT  = "#F5F7FA"
 GRAY   = "#888888"
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  SECTION A — ASSUMPTIONS  (Blue inputs — change these to update the model)
-# ══════════════════════════════════════════════════════════════════════════════
+
 FTE_ANNUAL_COST   = 90_000   # USD — Annual FTE cost
 WORKING_DAYS      = 250      # Days per year
 HOURS_PER_DAY     = 8        # Working hours per day
@@ -48,9 +25,6 @@ SAMPLE_CASES      = 812      # Cases in this dataset
 # Derived — do not change
 FTE_COST_PER_MIN = FTE_ANNUAL_COST / (WORKING_DAYS * HOURS_PER_DAY * 60)
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  SECTION B — OPPORTUNITY DEFINITIONS
-# ══════════════════════════════════════════════════════════════════════════════
 opportunities = [
     {
         "id"                    : "OPP_01",
@@ -80,9 +54,8 @@ opportunities = [
     },
 ]
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  SECTION C — CALCULATION ENGINE
-# ══════════════════════════════════════════════════════════════════════════════
+# calculation engine 
+
 def calculate_emv(opp, fte_cost_per_min):
     """EMV = Affected Events × Realization Potential × (Effort × FTE Cost/min)"""
     value_per_event = opp["effort_min"] * fte_cost_per_min
@@ -93,9 +66,6 @@ def enterprise_scale(sample_value, sample_cases, enterprise_cases):
     """Linear extrapolation to enterprise case volume."""
     return sample_value * (enterprise_cases / sample_cases)
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  SECTION D — PRINT BUSINESS CASE REPORT
-# ══════════════════════════════════════════════════════════════════════════════
 print("=" * 70)
 print("  ACCOUNTS PAYABLE VALUE FRAMING — BUSINESS CASE REPORT")
 print("  Celonis 6-Step Methodology | P2P Event Log Dataset")
@@ -153,7 +123,8 @@ print(f"  Total Value (Sample Dataset)   : ${total_sample:>10,.2f}")
 print(f"  Total Value (Enterprise Scale) : ${total_enterprise:>10,.0f}")
 print(f"  {'═'*60}")
 
-# ── KPI Targets ──────────────────────────────────────────────────────────────
+# kpi targets
+
 print(f"\n  SUCCESS KPI TARGETS")
 print(f"  {'─'*60}")
 kpis = [
@@ -169,9 +140,8 @@ print(f"  {'-'*65}")
 for kpi, baseline, target, goal in kpis:
     print(f"  {kpi:<28} {baseline:>12}  {target:>12}  {goal}")
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  SECTION E — SENSITIVITY ANALYSIS
-# ══════════════════════════════════════════════════════════════════════════════
+# SENSITIVITY ANALYSIS
+
 print(f"\n  SENSITIVITY ANALYSIS — OPP_01 (Payment & PO Blocks)")
 print(f"  Varying Realization % vs. Effort (minutes)")
 print(f"  {'─'*60}")
@@ -200,10 +170,6 @@ for effort in effort_range:
         val = 110 * real * effort * FTE_COST_PER_MIN
         row_str += f" ${val:>6.0f}"
     print(row_str)
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  SECTION F — CHARTS
-# ══════════════════════════════════════════════════════════════════════════════
 
 # Chart 1: Value Summary Bar
 fig, ax = plt.subplots(figsize=(9, 5))

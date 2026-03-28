@@ -4,7 +4,6 @@ import matplotlib.patches as mpatches
 import numpy as np
 import os
 
-# ── Config ──────────────────────────────────────────────────────────────────
 DATA_DIR   = "data"
 ASSETS_DIR = "assets"
 os.makedirs(ASSETS_DIR, exist_ok=True)
@@ -17,7 +16,6 @@ GREEN  = "#388E3C"
 GRAY   = "#888888"
 LIGHT  = "#F5F7FA"
 
-# ── Activity Classification ──────────────────────────────────────────────────
 HAPPY_PATH = [
     "Create Purchase Requisition Item",
     "Create Purchase Order Item",
@@ -42,7 +40,6 @@ DEVIATION_MAP = {
 }
 DEVIATION_ACTS = set(DEVIATION_MAP.keys())
 
-# ── Load Data ────────────────────────────────────────────────────────────────
 print("=" * 60)
 print("  P2P DEVIATION ANALYSIS")
 print("  AP Value Framing Business Case")
@@ -55,7 +52,6 @@ acts["EVENTTIME"] = pd.to_datetime(acts["EVENTTIME"])
 total_cases  = acts["_CASE_KEY"].nunique()
 total_events = len(acts)
 
-# ── 1. Case Classification ───────────────────────────────────────────────────
 print("\n[1] CASE CLASSIFICATION (Happy Path vs Deviant)")
 print("-" * 40)
 
@@ -72,7 +68,6 @@ print(f"  Total cases        : {total_cases:,}")
 print(f"  Happy Path cases   : {happy_n:,}  ({happy_n/total_cases*100:.1f}%)")
 print(f"  Deviant cases      : {deviant_n:,}  ({deviant_n/total_cases*100:.1f}%)")
 
-# Enrich with case attributes and cycle time
 ct = acts.groupby("_CASE_KEY")["EVENTTIME"].agg(["min", "max"])
 ct["cycle_days"] = (ct["max"] - ct["min"]).dt.days
 ct = ct.reset_index()[["_CASE_KEY", "cycle_days"]]
@@ -90,7 +85,6 @@ output_cases = os.path.join(DATA_DIR, "case_classification.csv")
 case_enriched.to_csv(output_cases, index=False)
 print(f"\n  [SAVED] {output_cases}")
 
-# ── 2. Deviation Event Summary ───────────────────────────────────────────────
 print("\n[2] DEVIATION EVENT BREAKDOWN")
 print("-" * 40)
 
@@ -117,7 +111,6 @@ output_acts = os.path.join(DATA_DIR, "activity_summary.csv")
 dev_summary.to_csv(output_acts, index=False)
 print(f"\n  [SAVED] {output_acts}")
 
-# ── 3. User Type per Deviation ───────────────────────────────────────────────
 print("\n[3] AUTOMATION PROFILE")
 print("-" * 40)
 ut = acts["User Type"].value_counts()
@@ -128,7 +121,6 @@ for utype, cnt in ut.items():
 print(f"\n  Manual deviation events : {dev_events[dev_events['User Type']=='A'].shape[0]}")
 print(f"  Auto  deviation events  : {dev_events[dev_events['User Type']=='B'].shape[0]}")
 
-# ── 4. Vendor-Level Root Cause ───────────────────────────────────────────────
 print("\n[4] VENDOR ROOT CAUSE ANALYSIS")
 print("-" * 40)
 
@@ -158,7 +150,6 @@ cp = vendor_acts[vendor_acts["ACTIVITY_EN"] == "Change Price"].groupby("Vendor")
 for vendor, cnt in cp.items():
     print(f"    {vendor:<20} {cnt} Change Price events")
 
-# ── 5. Chart: Deviation Pareto ───────────────────────────────────────────────
 fig, ax1 = plt.subplots(figsize=(12, 6))
 fig.patch.set_facecolor(LIGHT)
 ax1.set_facecolor(LIGHT)
@@ -204,7 +195,6 @@ plt.savefig(p1, dpi=150, bbox_inches="tight")
 plt.close()
 print(f"\n[CHART SAVED] {p1}")
 
-# ── 6. Chart: Vendor Risk Matrix ─────────────────────────────────────────────
 vp = vendor_full[vendor_full["Net Order Price"] > 0].copy()
 risk_colors = {"HIGH": RED, "MEDIUM": ORANGE, "LOW": GREEN}
 
