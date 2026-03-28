@@ -11,8 +11,9 @@ __pycache__/
 .env
 venv/
 .venv/
+*.egg
 
-# Jupyter
+# Jupyter (if used for exploration)
 .ipynb_checkpoints/
 *.ipynb
 
@@ -23,6 +24,12 @@ venv/
 # PowerPoint temp files
 ~$*.pptx
 
-# Output files (regenerate from scripts)
+# Output/generated files
 *.log
 output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
