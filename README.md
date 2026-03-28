@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/Process%20Mining-Celonis-blue?style=flat-square" />
   <img src="https://img.shields.io/badge/Domain-Accounts%20Payable-green?style=flat-square" />
   <img src="https://img.shields.io/badge/Methodology-Value%20Framing-orange?style=flat-square" />
-  <img src="https://img.shields.io/badge/Tools-Python%20%7C%20Excel%20%7C%20PowerPoint-purple?style=flat-square" />
+  <img src="https://img.shields.io/badge/Tools-Python%20%7C%20%20PowerPoint-purple?style=flat-square" />
   <img src="https://img.shields.io/badge/Dataset-P2P%20Event%20Log-red?style=flat-square" />
 </p>
 
@@ -47,32 +47,29 @@ Accounts Payable teams operating in SAP-based environments frequently face hidde
 ap-value-framing-business-case/
 │
 ├── 📂 data/
-│   ├── P2P-Cases.csv               # Case-level attributes (vendor, material, spend)
-│   ├── P2P-Activities.csv          # Event log (activity, timestamp, user type)
-│   └── data_dictionary.md          # Field definitions and assumptions
+│   ├── P2P-Cases.csv              
+│   ├── P2P-Activities.csv         
+│   └── data_dictionary.md         
 │
 ├── 📂 analysis/
-│   ├── p2p_data_profiling.py       # Data profiling & EDA script
-│   ├── deviation_analysis.py       # Variant & deviation classification
-│   └── value_calculation.py        # Business case monetary value formulas
+│   ├── p2p_data_profiling.py       
+│   ├── deviation_analysis.py       
+│   └── value_calculation.py        
 │
 ├── 📂 presentation/
-│   └── AP_Value_Framing_Business_Case.pptx   # 10-slide executive deck
-│
-├── 📂 dashboard/
-│   └── AP_Process_Dashboard.xlsx   # Excel KPI dashboard (5 sheets)
+│   └── AP_Value_Framing_Business_Case.pptx   
 │
 ├── 📂 assets/
-│   ├── ap_value_tree.png           # AP Value Tree screenshot
+│   ├── ap_value_tree.png           
 │   ├── celonis_variant_explorer.png
 │   ├── celonis_olap_table.png
 │   ├── celonis_data_model.png
 │   └── celonis_kpi_model.png
 │
 ├── 📂 docs/
-│   ├── methodology.md              # 6-Step Value Framing documentation
-│   ├── assumptions_log.md          # All business case assumptions
-│   └── kpi_definitions.md          # KPI formulas & business logic
+│   ├── methodology.md              
+│   ├── assumptions_log.md          
+│   └── kpi_definitions.md          
 │
 ├── README.md
 └── LICENSE
@@ -169,6 +166,7 @@ Step 6: Commit     → Executive sign-off documentation
   <img src="assets/celonis_variant_explorer.png" alt="Variant Explorer" width="700"/>
 </p>
 
+
 *The most common variant (39% of 279k cases, 26-day cycle) follows the expected happy path: Process Start → Create PR → Create PO → Print & Send PO → Receive Goods → Scan Invoice → Book Invoice → Process End.*
 
 ---
@@ -189,6 +187,21 @@ Step 6: Commit     → Executive sign-off documentation
 
 *The P2P data model connects LFA1 (vendor master) → EKKO (PO header) → EKPO (PO items, case table) → _CEL_P2P_ACTIVITIES (activity log), joined on LIFNR/MANDT/EBELN keys.*
 
+<div>
+  
+### Analysis Charts
+
+### Deviation Pareto Analysis
+<p align="center">
+  <img src="assets/deviation_pareto.png" height="200"/>
+</p>
+
+### Vendor Risk Matrix
+<p align="center">
+  <img src="assets/vendor_risk_matrix.png" height="200"/>
+</p>
+</div>
+
 ---
 
 ## ✅ Tools & Technologies
@@ -197,7 +210,6 @@ Step 6: Commit     → Executive sign-off documentation
 |------|---------|
 | **Celonis EMS** | Process mining platform — variant analysis, KPI calculation, OLAP tables |
 | **Python (pandas)** | Data profiling, deviation classification, value calculation |
-| **Microsoft Excel** | KPI dashboard, value tracking model |
 | **PowerPoint** | Executive business case presentation |
 | **SAP ERP** | Source system (LFA1, EKKO, EKPO tables) |
 
@@ -211,11 +223,12 @@ Open `presentation/AP_Value_Framing_Business_Case.pptx` — a 10-slide executive
 ### 2. Explore the Data
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/ap-value-framing-business-case.git
-cd ap-value-framing-business-case
+# Correct
+git clone https://github.com/komalharshita/celonis-ap-value-framing.git
+cd celonis-ap-value-framing
 
 # Install dependencies
-pip install pandas matplotlib seaborn
+pip install -r requirements.txt
 
 # Run data profiling
 python analysis/p2p_data_profiling.py
@@ -227,15 +240,8 @@ python analysis/deviation_analysis.py
 python analysis/value_calculation.py
 ```
 
-### 3. Open the Excel Dashboard
-Open `dashboard/AP_Process_Dashboard.xlsx` — contains 5 sheets:
-- **Overview**: KPI scorecard
-- **Process Health**: Deviation & automation metrics
-- **Deviation Analysis**: Activity-level breakdown
-- **Value Calculator**: Interactive business case model
-- **Vendor Analysis**: Vendor-level deviation rates
 
-
+---
 
 ## 📧 Contact
 
