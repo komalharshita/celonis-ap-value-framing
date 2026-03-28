@@ -28,7 +28,7 @@ Opportunities must align with organizational goals. For AP, the primary goals ar
 
 **Assessment for this project:**
 | Opportunity | Spend | Productivity | Working Capital | Qualified? |
-|------------|-------|-------------|-----------------|-----------|
+|-------------|-------|--------------|-----------------|------------|
 | Payment & PO Blocks | ✅ | ✅ | ✅ | ✅ Yes |
 | Price Deviations | ✅ | ✅ | — | ✅ Yes |
 
